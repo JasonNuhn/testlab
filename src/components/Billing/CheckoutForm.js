@@ -38,7 +38,7 @@ class CheckoutForm extends React.Component {
       .then(({ token }) => {
         console.log("Received Stripe token:", token);
         axios
-          .post("https://lspaperstack.herokuapp.com/api/checkout", {
+          .post("http://localhost:3001/api/checkout", {
             token: token.id,
             sub,
             one
