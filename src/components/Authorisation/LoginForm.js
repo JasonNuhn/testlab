@@ -44,7 +44,7 @@ class LoginForm extends Component {
     }
 
     axios
-      .post(`http://localhost:3001/login`, { email, password })
+      .post(`http://lspaperstack.herokuapp.com/login`, { email, password })
       .then(res => {
         localStorage.setItem("tkn", res.data.token);
         this.props.history.push("/invoices");
