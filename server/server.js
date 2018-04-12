@@ -683,6 +683,8 @@ const STATUS_USER_ERROR = 422;
 const STATUS_SERVER_ERROR = 500;
 const STATUS_UNAUTHORIZED_ERROR = 401;
 
+const PORT = process.env.PORT || 5000;
+
 const corsOptions = {
   origin: true,
   methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
@@ -711,7 +713,7 @@ mongoose
   //.connect("mongodb://localhost:27017/users")
   .then(function(db) {
     console.log("All your dbs belong to us!");
-    server.listen(3001, function() {
+    server.listen(PORT, function() {
       console.log("server running on port 3001");
     });
   })
@@ -1383,12 +1385,9 @@ server.put("/upload", verifyToken, (req, res) => {
   const supportedMimeTypes = ["image/jpeg", "image/png"];
   const contentType = imageFile.mimetype;
   if (supportedMimeTypes.indexOf(contentType) === -1) {
-    return res
-      .status(STATUS_USER_ERROR)
-      .json({
-        err:
-          "You are permitted to upload the following image types jpeg and png"
-      });
+    return res.status(STATUS_USER_ERROR).json({
+      err: "You are permitted to upload the following image types jpeg and png"
+    });
   }
 
   const userId = req.query.userId;
