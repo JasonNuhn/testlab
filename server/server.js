@@ -683,7 +683,7 @@ const STATUS_USER_ERROR = 422;
 const STATUS_SERVER_ERROR = 500;
 const STATUS_UNAUTHORIZED_ERROR = 401;
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 const corsOptions = {
   origin: true,
@@ -702,7 +702,6 @@ const InvLine = require("./invoice/invLineItemsModel.js");
 const server = express();
 server.use(bodyParser.urlencoded({ extended: false })); // added
 server.use(bodyParser.json());
-server.use(express.static(__dirname + "/public"));
 server.use(fileUpload({ limits: { fileSize: 400 * 1024 } }));
 server.use(cors());
 
