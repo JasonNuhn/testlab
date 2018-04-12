@@ -702,6 +702,7 @@ const InvLine = require("./invoice/invLineItemsModel.js");
 const server = express();
 server.use(bodyParser.urlencoded({ extended: false })); // added
 server.use(bodyParser.json());
+server.use(express.static(__dirname + "/public"));
 server.use(fileUpload({ limits: { fileSize: 400 * 1024 } }));
 server.use(cors());
 
@@ -713,7 +714,7 @@ mongoose
   //.connect("mongodb://localhost:27017/users")
   .then(function(db) {
     console.log("All your dbs belong to us!");
-    server.listen(PORT, function() {
+    server.listen(process.env.PORT, function() {
       console.log("server running on port 3001");
     });
   })
