@@ -21,7 +21,7 @@ export default ComposedComponent => {
 
       this.setState({ verifyingToken: true }, () => {
         axios
-          .get(`http://lspaperstack.herokuapp.com/jwt`, {
+          .get(`https://lspaperstack.herokuapp.com/jwt`, {
             headers: {
               Authorization: localStorage.getItem("tkn")
             }
@@ -45,7 +45,7 @@ export default ComposedComponent => {
     }
 
     render() {
-      if (!this.state.verifyingToken) {
+      if (!this.state.authenticated && !this.state.verifyingToken) {
         return (
           <div className="Require-Auth">
             <p>
