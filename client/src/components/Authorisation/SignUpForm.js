@@ -87,13 +87,8 @@ class SignUpForm extends Component {
       return this.setState({ confirmPasswordErr: "*passwords do not match" });
     else this.setState({ confirmPasswordErr: "" });
 
-    axios.post(`https://lspaperstack.herokuapp.com/new-user`, {
-      email,
-      password
-    });
-    console.log(email);
-    console
-      .log(password)
+    axios
+      .post(`https://lspaperstack.herokuapp.com/new-user`, { email, password })
       .then(res => {
         localStorage.setItem("tkn", res.data.token);
         console.log("tkn");
