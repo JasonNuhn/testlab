@@ -54,7 +54,7 @@ class Settings extends Component {
     // );
     axios({
       method: "put",
-      url: `http://localhost:3001/new-password`,
+      url: `https://lspaperstack.heroku.com/new-password`,
       params: {
         email: this.state.email,
         oldpassword: this.state.oldpassword,
@@ -96,7 +96,7 @@ class Settings extends Component {
     const companyName = this.state.companyName;
     axios
       .put(
-        "http://localhost:3001/company-name",
+        "https://lspaperstack.herokuapp.com/company-name",
         { companyName },
         {
           params: {
@@ -176,7 +176,7 @@ class Settings extends Component {
     const logo = new FormData();
     logo.append("logo", imageFile);
     axios
-      .put("http://localhost:3001/upload", logo, {
+      .put("https://lspaperstack.herokuapp.com/upload", logo, {
         params: { userId: localStorage.getItem("userId") },
         headers: {
           Authorization: localStorage.getItem("tkn"),
