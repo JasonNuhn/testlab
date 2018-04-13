@@ -45,7 +45,7 @@ export default ComposedComponent => {
     }
 
     render() {
-      if (!this.state.authenticated && !this.state.verifyingToken) {
+      if (!this.state.verifyingToken) {
         return (
           <div className="Require-Auth">
             <p>
