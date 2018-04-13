@@ -1,21 +1,33 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "axios": "^0.18.0",
-    "bootstrap": "^4.0.0",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4",
-    "react-stripe-elements": "^1.6.0",
-    "reactstrap": "^5.0.0-beta.3"
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "6.11.x"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "jest",
+    "start": "node server",
+    "heroku-postbuild":
+      "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "cacheDirectories": ["node_modules", "client/node_modules"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "^5.0.13",
+    "path": "^0.12.7",
+    "stripe": "^5.8.0"
+  },
+  "devDependencies": {
+    "jest": "^22.4.3"
   }
 }

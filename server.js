@@ -674,6 +674,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const path = require("path");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -683,8 +684,6 @@ const STATUS_USER_ERROR = 422;
 const STATUS_SERVER_ERROR = 500;
 const STATUS_UNAUTHORIZED_ERROR = 401;
 
-const PORT = process.env.PORT || 3001;
-
 const corsOptions = {
   origin: true,
   methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
@@ -693,11 +692,11 @@ const corsOptions = {
   credentials: true // enable set cookie
 };
 
-const Users = require("./invoice/userModel.js");
-const Customers = require("./invoice/custModel.js");
-const Invoices = require("./invoice/invModel.js");
-const FinTran = require("./invoice/finTranModel.js");
-const InvLine = require("./invoice/invLineItemsModel.js");
+const Users = require("./server/invoice/userModel.js");
+const Customers = require("./server/invoice/custModel.js");
+const Invoices = require("./server/invoice/invModel.js");
+const FinTran = require("./server/invoice/finTranModel.js");
+const InvLine = require("./server/invoice/invLineItemsModel.js");
 
 const server = express();
 server.use(bodyParser.urlencoded({ extended: false })); // added
@@ -707,19 +706,24 @@ server.use(cors());
 
 require("dotenv").config();
 
+const port = process.env.PORT || 3001;
+
 mongoose.Promise = global.Promise;
 mongoose
   .connect(process.env.MONGO_URI)
   //.connect("mongodb://localhost:27017/users")
   .then(function(db) {
     console.log("All your dbs belong to us!");
-    server.listen(process.env.PORT, function() {
-      console.log("server running on port 3001");
+    server.listen(port, function() {
+      console.log("server running on port " + port);
     });
   })
   .catch(function(err) {
     console.log("DB connection failed..", err.message);
   });
+
+// Priority serve any static files.
+server.use(express.static(path.resolve(__dirname, "./client/build")));
 
 /**
  * CRUD for Users
@@ -1481,4 +1485,9 @@ server.put("/company-address", verifyToken, (req, res) => {
       res.status(200).json(updatedUser.companyAddress);
     });
   });
+});
+
+// All remaining requests return the React app, so it can handle routing.
+server.get("*", (request, response) => {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
